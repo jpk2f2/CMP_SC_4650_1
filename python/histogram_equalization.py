@@ -2,6 +2,16 @@ import cv2  # import opencv
 import numpy
 import matplotlib.pyplot as plot
 
+
+# personal 'histogram' function for counting pixel usage
+# was printing this, but pyplot.hist() makes prettier ones and I couldn't get it to match
+def _histogram(image, bins):
+    array = numpy.zeros(bins)  # initialize zeroed array of bin-size(always 256)
+    for i in image:
+        array[i] += 1
+    return array
+
+
 def equalize(im1, im2):
     # resize images in order to stack them later
     image = cv2.resize(im1, (0, 0), None, .70, .70)
@@ -21,13 +31,12 @@ def equalize(im1, im2):
     plot.title('first')
     plot.show()
 
-    # person 'histogram' function for counting pixel usage
-    # was printing this, but pyplot.hist() makes prettier ones and I couldn't get it to match
-    def _histogram(image, bins):
-        array = numpy.zeros(bins)  # initialize zeroed array of bin-size(always 256)
-        for i in image:
-            array[i] += 1
-        return array
+    # personal histogram plotting, disabled due to issues with bar printing
+    # histogram = _histogram(flatimage, 256)
+    # plot.plot(histogram)
+    # plot.xlim(0, 256)
+    # plot.title('first_alt')
+    # plot.show()
 
     histogram = _histogram(flatimage, 256)  # use personal histogram function to get array
 
